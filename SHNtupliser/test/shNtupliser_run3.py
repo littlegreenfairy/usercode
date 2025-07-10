@@ -49,7 +49,8 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 from Configuration.AlCa.autoCond import autoCond
 from Configuration.AlCa.GlobalTag import GlobalTag
 if isMC:
-    process.GlobalTag = GlobalTag(process.GlobalTag, '102X_upgrade2018_realistic_v15', '')
+    # Change from Run 2 global tag to Run 3
+    process.GlobalTag = GlobalTag(process.GlobalTag, '130X_mcRun3_2022_realistic_v5', '')  # Run 3 MC
 else:
     from SHarper.SHNtupliser.globalTags_cfi import getGlobalTagNameData
     globalTagName = getGlobalTagNameData(datasetVersion)
@@ -87,9 +88,9 @@ process.shNtupliser.eleIsolPtTrksValueMapTag = cms.InputTag("")
 process.shNtupliser.trkIsoNoJetCoreTag = cms.InputTag("")
 process.shNtupliser.nrSatCrysIn5x5Tag = cms.InputTag("") 
 process.shNtupliser.addPFCands = True
-process.shNtupliser.stageL1Trigger = cms.uint32(2)
-process.shNtupliser.minEtToPromoteSC = 20
-process.shNtupliser.minEtToSaveEle = 20
+process.shNtupliser.stageL1Trigger = cms.uint32(2)  # Stage 2 for Run 3
+process.shNtupliser.minEtToPromoteSC = 1
+process.shNtupliser.minEtToSaveEle = 1
 disableLargeCollections=True
 if disableLargeCollections:
     print("*******************************************")
@@ -173,6 +174,16 @@ else:
 
 if isCrabJob and process.shNtupliser.datasetCode.value()>140:
     process.shNtupliser.addTrigSum = cms.bool(False)
+
+print("disabling L1 trigger stage for dataset code >140")
+if not isCrabJob and process.shNtupliser.datasetCode.value()>140:
+    process.shNtupliser.addTrigSum = cms.bool(False)
+
+# Add this after the MC/data detection
+if isMC:
+    print("Disabling L1 prescales for MC")
+    process.shNtupliser.addTrigSum = cms.bool(False)
+    process.shNtupliser.stageL1Trigger = cms.uint32(2)
 
 #from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 #setupEgammaPostRecoSeq(process,
