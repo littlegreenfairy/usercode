@@ -9,6 +9,8 @@
 #include "DataFormats/EcalDetId/interface/EcalSubdetector.h"
 #include "DataFormats/EgammaCandidates/interface/GsfElectron.h"
 #include "DataFormats/EgammaCandidates/interface/Photon.h"
+#include "DataFormats/PatCandidates/interface/Electron.h"
+#include "DataFormats/PatCandidates/interface/Photon.h"
 
 #include "RecoEcal/EgammaCoreTools/interface/EcalClusterTools.h"
 #include "CondFormats/EcalObjects/interface/EcalChannelStatus.h"
@@ -41,6 +43,7 @@ struct EleStruct {
   static std::string contents(){return "et/F:energy:energyErr:ecalEnergy:ecalEnergyErr:eta:phi:trkEtaMode:trkPhiMode:trkPMode:trkPModeErr:fbrem:corrMean:corrSigma:hademTow:hademCone:trkPInn:trkPtInn:trkPVtx:trkPOut:trkChi2:trkNDof:ecalDrivenSeed:nrSatCrys:scRawEnergy:scRawESEnergy";}
   void clear(){et=energy=energyErr=ecalEnergy=ecalEnergyErr=eta=phi=trkEtaMode=trkPhiMode=trkPMode=trkPModeErr=fbrem=corrMean=corrSigma=hademTow=hademCone=trkPInn=trkPtInn=trkPVtx=trkPOut=trkChi2=trkNDof=ecalDrivenSeed=nrSatCrys=scRawEnergy=scRawESEnergy=0.;}
   void fill(const reco::GsfElectron& ele);
+  void fill(const pat::Electron& ele);
 };
 
 struct EleEnergyStruct {
@@ -65,6 +68,7 @@ struct PhoStruct {
   static std::string contents(){return "et/F:energy:energyErr:eta:phi:corrMean:corrSigma:hademTow:hademCone:nrSatCrys:scRawEnergy:scRawESEnergy";}
   void clear(){et=energy=energyErr=eta=phi=corrMean=corrSigma=hademTow=hademCone=nrSatCrys=scRawEnergy=scRawESEnergy=0.;}
   void fill(const reco::Photon& pho);
+  void fill(const pat::Photon& pho);
 };
 
 struct SuperClustStruct {

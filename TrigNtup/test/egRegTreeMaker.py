@@ -71,6 +71,7 @@ process.TFileService = cms.Service("TFileService",
 
 def swapEGRegToMiniAOD(egRegPara):
     """Swap EGRegTreeMaker input tags from AOD to MiniAOD format"""
+    egRegPara.usePatCollections = cms.bool(True)
     egRegPara.verticesTag = cms.InputTag("offlineSlimmedPrimaryVertices")
     egRegPara.genPartsTag = cms.InputTag("prunedGenParticles")
     egRegPara.puSumTag = cms.InputTag("slimmedAddPileupInfo")
@@ -81,6 +82,7 @@ def swapEGRegToMiniAOD(egRegPara):
     # For MiniAOD, SuperClusters are in reducedEgamma
     egRegPara.scTag = cms.VInputTag("reducedEgamma:reducedSuperClusters")
     egRegPara.scAltTag = cms.VInputTag()  # Not available in MiniAOD
+    egRegPara.rhoTag = cms.InputTag("fixedGridRhoFastjetAll")
 
 process.egRegTreeMaker = cms.EDAnalyzer("EGRegTreeMaker",
                                         verticesTag = cms.InputTag("offlinePrimaryVertices"),
@@ -101,9 +103,7 @@ process.egRegTreeMaker = cms.EDAnalyzer("EGRegTreeMaker",
 if options.isMiniAOD:
     swapEGRegToMiniAOD(process.egRegTreeMaker)
 
-process.load("SHarper.TrigNtup.rePFSuperCluster_cff")
-
-process.p = cms.Path(process.rePFSuperClusterThresSeq*process.egRegTreeMaker)
+process.p = cms.Path(process.egRegTreeMaker)
 #!!!!
 process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
     compressionAlgorithm = cms.untracked.string('LZMA'),

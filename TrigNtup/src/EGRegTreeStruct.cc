@@ -345,3 +345,33 @@ void ShowerShapeStruct::fill(const reco::Photon::ShowerShape& phoSS)
   sigmaIEtaIPhi = phoSS.sigmaIetaIphi;
   sigmaIPhiIPhi = phoSS.sigmaIphiIphi;
 }
+
+// PAT Electron implementation - just calls the reco::GsfElectron version
+void EleStruct::fill(const pat::Electron& ele)
+{
+  // pat::Electron inherits from reco::GsfElectron, so we can use static_cast
+  const reco::GsfElectron& gsfEle = static_cast<const reco::GsfElectron&>(ele);
+  
+  // Call the existing fill method
+  fill(gsfEle);
+  
+  // ADD PAT-SPECIFIC INFORMATION if needed:
+  // if(ele.hasUserFloat("someCorrection")) {
+  //   corrMean = ele.userFloat("someCorrection");
+  // }
+}
+
+// PAT Photon implementation - just calls the reco::Photon version  
+void PhoStruct::fill(const pat::Photon& pho)
+{
+  // pat::Photon inherits from reco::Photon, so we can use static_cast
+  const reco::Photon& recoPho = static_cast<const reco::Photon&>(pho);
+  
+  // Call the existing fill method
+  fill(recoPho);
+  
+  // ADD PAT-SPECIFIC INFORMATION if needed:
+  // if(pho.hasUserFloat("someCorrection")) {
+  //   corrMean = pho.userFloat("someCorrection");
+  // }
+}
