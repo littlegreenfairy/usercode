@@ -368,7 +368,7 @@ void EGRegTreeMaker::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
 const reco::GenParticle*  EGRegTreeMaker::matchGenPart(float eta,float phi,const std::vector<reco::GenParticle>& genParts)
 {
   const reco::GenParticle* bestMatch=nullptr;
-  float bestDR2=0.2*0.2;  //edit matching DeltaR
+  float bestDR2=0.3*0.3;  //edit matching DeltaR
   for(const auto& genPart : genParts){
     if(std::abs(genPart.pdgId())==11){
       if(genPart.statusFlags().isPrompt() && genPart.statusFlags().isFirstCopy()){
@@ -407,7 +407,7 @@ const reco::SuperCluster*  EGRegTreeMaker::matchSC(const reco::SuperCluster* scT
 const reco::SuperCluster*  EGRegTreeMaker::matchSC(float eta,float phi,const std::vector<edm::Handle<reco::SuperClusterCollection> >& scHandles)
 {
   const reco::SuperCluster* bestMatch=nullptr;
-  float bestDR2=0.2*0.2;  //edit matching DeltaR
+  float bestDR2=0.3*0.3;  //edit matching DeltaR
   for(const auto& scHandle : scHandles){
     for(const auto& sc: *scHandle){
       float dR2 = reco::deltaR2(sc.eta(),sc.phi(),eta,phi);

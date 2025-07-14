@@ -1,7 +1,7 @@
 # For a local MiniAOD file
 cmsRun egRegTreeMaker.py \
   inputFiles=file:/eos/cms/store/group/phys_egamma/soffi/4Elena/9cb4c438-4ddc-4068-85d4-499780df0dc0.root \
-  outputFile=/eos/user/e/eldesant/NtuplesRegression/provaegRegTree0p3.root \
+  outputFile=/eos/user/e/eldesant/NtuplesRegression/provaegRegTree10.root \
   maxEvents=10000 \
   isMiniAOD=True \
   isMC=True
