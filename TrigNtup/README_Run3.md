@@ -18,18 +18,20 @@ scram b -j8
 ## Key Changes with respect to branch 133X
 The main ntuplizer script `test/egRegTreeMaker.py` has been updated with:
 
-1. **GlobalTag**: Updated to use appropriate Run 3 GlobalTags:
+1. **isMiniAOD flag**: to choose whether to run on MiniAODSIM or on AODSIM. On this branch it is set to `True` by default.
+
+2. **GlobalTag**: Updated to use appropriate Run 3 GlobalTags:
    - MC: `130X_mcRun3_2023_realistic_postBPix_v2`
    - Data: `130X_dataRun3_Prompt_v4`
 
-2. **Input Tags**: Configured for MiniAOD format:
+3. **Input Tags**: Configured for MiniAOD format:
    - Vertices: `offlineSlimmedPrimaryVertices`
    - Electrons: `slimmedElectrons`
    - Photons: `slimmedPhotons`
    - GenParticles: `prunedGenParticles`
    - ECAL hits: `reducedEgamma:reducedEBRecHits`, `reducedEgamma:reducedEERecHits`
 
-3. **Python 3 compatibility**: Updated print statements
+4. **Python 3 compatibility**: Updated print statements
 
 ## Running the Ntupliser
 
